@@ -1,0 +1,23 @@
+{
+  "name": "react-croquet-counter",
+  "version": "1.0.0",
+  "description": "Example for using Croquet React bindings",
+  "main": "index.html",
+  "author": "Croquet Corporation",
+  "license": "ISC",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "browserslist": [
+    "> 5%"
+  ],
+  "dependencies": {
+    "@croquet/react": "0.2.6-subfix5",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+}
