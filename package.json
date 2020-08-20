@@ -13,6 +13,7 @@
     "> 5%"
   ],
   "dependencies": {
+    "@croquet/observable": "^0.3.1-commonjs",
     "@croquet/react": "^0.3.1-commonjs",
     "react": "16.8.6",
     "react-dom": "16.8.6"
