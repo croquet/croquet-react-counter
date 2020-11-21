@@ -25,11 +25,11 @@ class CounterModel extends AutoObservableModel({ count: 0 }) {
   }
 }
 
-CounterModel.register();
+CounterModel.register("CounterModel");
 
 function CounterApp() {
   return (
-    <InCroquetSession name="counter" modelRoot={CounterModel}>
+    <InCroquetSession appId="com.example.counter" name="counter" password="foo" modelRoot={CounterModel}>
       <CounterDisplay />
     </InCroquetSession>
   );
