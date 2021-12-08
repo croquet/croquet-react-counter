@@ -2,7 +2,7 @@
 
 Example for Croquet's React bindings, based on Croquet version 1.0.5 and Croquet React bindings version 1.0.3.
 
-# Run it Locally
+## Run it Locally
 
 To run this example, have npm ready and run following commands:
 
