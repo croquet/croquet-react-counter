@@ -1,26 +1,29 @@
 import ReactDom from "react-dom";
-import React from "react";
-import { AutoObservableModel } from "@croquet/observable";
+import React, { useState } from "react";
+import { Model } from "@croquet/croquet";
 import {
   usePublish,
   useModelRoot,
-  useObservable,
-  InCroquetSession
+  InCroquetSession,
+  useSubscribe
 } from "@croquet/react";
 
-class CounterModel extends AutoObservableModel({ count: 0 }) {
-  init() {
-    super.init();
+class CounterModel extends Model {
+  init(option) {
+    super.init(option);
+    this.count = 0;
     this.future(1000).tick();
-    this.subscribe("counter", "reset", this.resetCounter);
+    this.subscribe(this.id, "reset", this.resetCounter);
   }
 
   resetCounter() {
     this.count = 0;
+    this.publish(this.id, "count");
   }
 
   tick() {
     this.count += 1;
+    this.publish(this.id, "count");
     this.future(1000).tick();
   }
 }
@@ -29,7 +32,13 @@ CounterModel.register("CounterModel");
 
 function CounterApp() {
   return (
-    <InCroquetSession appId="com.example.counter" name="counter" password="foo" modelRoot={CounterModel}>
+    <InCroquetSession
+      apiKey="1_k2xgbwsmtplovtjbknerd53i73otnqvlwwjvix0f"
+      appId="io.croquet.react.codesandbox.counter"
+      password="abc"
+      name="counter"
+      model={CounterModel}
+    >
       <CounterDisplay />
     </InCroquetSession>
   );
@@ -37,9 +46,11 @@ function CounterApp() {
 
 function CounterDisplay() {
   const model = useModelRoot();
+  const [count, setCount] = useState(model.count);
 
-  const { count } = useObservable(model);
-  const publishReset = usePublish(() => ["counter", "reset"], []);
+  useSubscribe(model.id, "count", () => setCount(model.count), []);
+
+  const publishReset = usePublish(() => [model.id, "reset"], []);
 
   return (
     <div
