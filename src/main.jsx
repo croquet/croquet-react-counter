@@ -1,11 +1,11 @@
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom/client";
 import React, { useState } from "react";
-import { Model } from "@croquet/croquet";
 import {
   usePublish,
   useModelRoot,
   InCroquetSession,
-  useSubscribe
+  useSubscribe,
+  Model,    
 } from "@croquet/react";
 
 class CounterModel extends Model {
@@ -31,10 +31,13 @@ class CounterModel extends Model {
 CounterModel.register("CounterModel");
 
 function CounterApp() {
+  const appId = import.meta.env["VITE_CROQUET_APP_ID"] || CroquetApp.autoSession("q");
+  const apiKey = import.meta.env["VITE_CROQUET_API_KEY"];
+    
   return (
     <InCroquetSession
-      apiKey="1_k2xgbwsmtplovtjbknerd53i73otnqvlwwjvix0f"
-      appId="io.croquet.react.codesandbox.counter"
+      apiKey={apiKey}
+      appId={appId}
       password="abc"
       name="counter"
       model={CounterModel}
@@ -62,4 +65,8 @@ function CounterDisplay() {
   );
 }
 
-ReactDom.render(<CounterApp />, document.getElementById("app"));
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <CounterApp />
+  </React.StrictMode>,
+)
