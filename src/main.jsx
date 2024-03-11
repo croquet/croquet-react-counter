@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import {
   usePublish,
   useModelRoot,
-  InCroquetSession,
+  CroquetRoot,
   useSubscribe,
   Model,    
+  App as CroquetApp,
 } from "@croquet/react";
 
 class CounterModel extends Model {
@@ -29,21 +30,22 @@ class CounterModel extends Model {
 }
 
 CounterModel.register("CounterModel");
-
-function CounterApp() {
-  const appId = import.meta.env["VITE_CROQUET_APP_ID"] || CroquetApp.autoSession("q");
-  const apiKey = import.meta.env["VITE_CROQUET_API_KEY"];
     
+function CounterApp() {
   return (
-    <InCroquetSession
-      apiKey={apiKey}
-      appId={appId}
-      password="abc"
-      name="counter"
-      model={CounterModel}
+    <CroquetRoot
+      sessionParams={{
+        apiKey: import.meta.env["VITE_CROQUET_API_KEY"],
+        appId: import.meta.env["VITE_CROQUET_APP_ID"] || CroquetApp.autoSession("q"),
+        password: "abc",
+        name: "counter",
+        model: CounterModel,
+        tps: 0.5,
+        eventRateLimit: import.meta.env["EVENT_RATE_LIMIT"] || 60,
+      }}
     >
       <CounterDisplay />
-    </InCroquetSession>
+    </CroquetRoot>
   );
 }
 
