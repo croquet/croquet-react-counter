@@ -36,7 +36,7 @@ function CounterApp() {
     <CroquetRoot
       sessionParams={{
         apiKey: import.meta.env["VITE_CROQUET_API_KEY"],
-        appId: import.meta.env["VITE_CROQUET_APP_ID"] || CroquetApp.autoSession("q"),
+        appId: import.meta.env["VITE_CROQUET_APP_ID"],
         password: "abc",
         name: "counter",
         model: CounterModel,
