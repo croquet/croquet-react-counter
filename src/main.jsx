@@ -40,8 +40,6 @@ function CounterApp() {
         password: "abc",
         name: "counter",
         model: CounterModel,
-        tps: 0.5,
-        eventRateLimit: import.meta.env["EVENT_RATE_LIMIT"] || 60,
       }}
     >
       <CounterDisplay />
