@@ -1,30 +1,27 @@
 import ReactDOM from "react-dom/client";
-import React, { useState } from "react";
+import React from "react";
 import {
-  usePublish,
-  useModelRoot,
+  useReactModelRoot,
   CroquetRoot,
-  useSubscribe,
-  Model,    
-  App as CroquetApp,
+  ReactModel,
 } from "@croquet/react";
 
-class CounterModel extends Model {
+class CounterModel extends ReactModel {
   init(option) {
-    super.init(option);
-    this.count = 0;
-    this.future(1000).tick();
+    super.init(option)
+    this.resetCounter()
+
     this.subscribe(this.id, "reset", this.resetCounter);
+
+    this.future(1000).tick()
   }
 
   resetCounter() {
     this.count = 0;
-    this.publish(this.id, "count");
   }
 
   tick() {
     this.count += 1;
-    this.publish(this.id, "count");
     this.future(1000).tick();
   }
 }
@@ -48,16 +45,13 @@ function CounterApp() {
 }
 
 function CounterDisplay() {
-  const model = useModelRoot();
-  const [count, setCount] = useState(model.count);
-
-  useSubscribe(model.id, "count", () => setCount(model.count), []);
-
-  const publishReset = usePublish(() => [model.id, "reset"], []);
+  const model = useReactModelRoot();
+  
+  const count = model.count
 
   return (
     <div
-      onClick={publishReset}
+      onClick={() => model.reset()}
       style={{ margin: "1em", fontSize: "3em", cursor: "pointer" }}
     >
       {count}
