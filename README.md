@@ -1,6 +1,6 @@
 # React & Croquet: Counter
 
-Example for Croquet's React bindings, based on Croquet React bindings version 1.3.1.
+Example for Croquet's React bindings, based on Croquet React bindings version 2.0.0
 
 ## Run it Locally
 
