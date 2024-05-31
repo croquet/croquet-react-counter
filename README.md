@@ -13,6 +13,6 @@ To run this example, first update .env.local with your Croquet development key o
 
 The following tutorial explains the organization of code:
 
-https://croquet.io/docs/croquet-react/tutorial-1%20React%20Simple%20Counter.html
+https://croquet.io/docs/croquet-react/tutorial-1_React_Simple_Counter.html
 
 
